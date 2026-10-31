@@ -1,0 +1,21 @@
+{
+  "name": "nexcam-cctv",
+  "version": "1.0.0",
+  "description": "NEXCAM CCTV - Premium Multi-Device CCTV Monitoring Platform Created By Shiv Yogi",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/runner.js"
+  },
+  "keywords": [
+    "cctv",
+    "webrtc",
+    "security",
+    "live-streaming",
+    "shiv-yogi",
+    "liquid-glass"
+  ],
+  "author": "Shiv Yogi",
+  "license": "MIT"
+}
