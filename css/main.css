@@ -1,0 +1,512 @@
+/**
+ * NEXCAM CCTV - Core Interface Stylesheet
+ * Premium Multi-Device CCTV Monitoring Platform
+ * Created By Shiv Yogi
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-pure-black);
+  color: var(--color-text-primary);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+}
+
+/* App Header */
+.app-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: rgba(4, 7, 13, 0.85);
+  backdrop-filter: blur(var(--glass-blur-md));
+  -webkit-backdrop-filter: blur(var(--glass-blur-md));
+  border-bottom: 1px solid var(--glass-border-base);
+  z-index: 1000;
+  position: relative;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo-img {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.45));
+}
+
+.brand-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #ffffff 40%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+
+.brand-creator {
+  font-family: var(--font-creator);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-wider);
+  color: rgba(0, 229, 255, 0.8);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+}
+
+.brand-creator span {
+  color: #ffffff;
+  font-weight: var(--fw-bold);
+}
+
+/* Mode Switcher Tabs */
+.mode-switcher {
+  display: flex;
+  align-items: center;
+  background: rgba(10, 15, 26, 0.9);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border-base);
+  gap: 4px;
+}
+
+.mode-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-main);
+  font-size: var(--text-xs);
+  font-weight: var(--fw-semibold);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all var(--trans-base);
+}
+
+.mode-tab-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.mode-tab-btn.active {
+  background: linear-gradient(135deg, rgba(0, 168, 255, 0.4) 0%, rgba(0, 102, 255, 0.6) 100%);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 168, 255, 0.4);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Main Container Viewports */
+.main-viewport {
+  height: calc(100vh - 64px);
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   CAMERA MODE INTERFACE
+   ========================================================================== */
+
+#camera-mode-view {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.camera-preview-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#camera-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000000;
+}
+
+/* Camera HUD Overlay */
+.camera-hud-overlay {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.camera-hud-overlay > * {
+  pointer-events: all;
+}
+
+.camera-status-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(6, 10, 18, 0.7);
+  backdrop-filter: blur(12px);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border-base);
+}
+
+.camera-controls-bottom-bar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(6, 10, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border-accent);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), var(--accent-glow-subtle);
+  z-index: 60;
+  max-width: 95vw;
+  overflow-x: auto;
+}
+
+/* Ultra-Dark Black Screen Mode (Battery-Saver Surface) */
+#black-screen-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000000 !important;
+  z-index: 99990;
+  cursor: pointer;
+  display: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#black-screen-overlay.active {
+  display: block !important;
+}
+
+/* Wake Prompt shown momentarily then fades */
+.black-screen-wake-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.05);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   DISPLAY MODE INTERFACE
+   ========================================================================== */
+
+#display-mode-view {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.display-viewport-inner {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.multi-camera-stage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Camera Card within Stage */
+.cam-card {
+  background: #03060c;
+  border: 1px solid var(--glass-border-base);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  transition: all var(--trans-base);
+}
+
+.cam-card:hover {
+  border-color: var(--accent-cyan);
+}
+
+.cam-card.focused {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.35);
+}
+
+.cam-card-header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.cam-card-header > * {
+  pointer-events: all;
+}
+
+.cam-label-tag {
+  background: rgba(5, 8, 15, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border-subtle);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: var(--fw-semibold);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cam-card-video-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cam-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000000;
+}
+
+.cam-card-controls-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all var(--trans-base);
+}
+
+.cam-card:hover .cam-card-controls-overlay,
+.cam-card:focus-within .cam-card-controls-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   DISPLAY LOWER-RIGHT BRANDING & REC INDICATOR (SECTION 23)
+   ========================================================================== */
+
+.display-floating-watermark {
+  position: absolute;
+  bottom: 16px;
+  right: 20px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(4, 7, 14, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border-subtle);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.display-floating-watermark .brand-text {
+  font-family: var(--font-creator);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(0, 229, 255, 0.9);
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+.display-floating-watermark .brand-text span {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Real REC Indicator - Only visible during active recording */
+.display-rec-badge {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wider);
+  color: #ff3366;
+  text-shadow: 0 0 8px rgba(255, 51, 102, 0.7);
+}
+
+.display-rec-badge.recording-active {
+  display: inline-flex !important;
+}
+
+/* ==========================================================================
+   TELEMETRY & DEVICE INFO GRIDS
+   ========================================================================== */
+
+.telemetry-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.telemetry-chip {
+  background: rgba(10, 15, 26, 0.6);
+  border: 1px solid var(--glass-border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.telemetry-label {
+  font-size: var(--text-2xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  font-family: var(--font-mono);
+}
+
+.telemetry-val {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+  font-family: var(--font-mono);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATIONS
+   ========================================================================== */
+
+#toast-container {
+  position: fixed;
+  top: 76px;
+  right: 20px;
+  z-index: 99995;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  max-width: 360px;
+  width: calc(100vw - 40px);
+}
+
+.toast {
+  pointer-events: all;
+  background: rgba(10, 16, 28, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border-base);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  transition: all var(--trans-base);
+}
+
+.toast.success {
+  border-color: rgba(0, 230, 118, 0.4);
+}
+.toast.success .toast-icon {
+  color: #00e676;
+}
+
+.toast.error {
+  border-color: rgba(255, 51, 102, 0.4);
+}
+.toast.error .toast-icon {
+  color: #ff3366;
+}
+
+.toast.warning {
+  border-color: rgba(255, 171, 0, 0.4);
+}
+.toast.warning .toast-icon {
+  color: #ffab00;
+}
+
+.toast.info {
+  border-color: rgba(0, 229, 255, 0.4);
+}
+.toast.info .toast-icon {
+  color: #00e5ff;
+}
+
+.toast-message {
+  flex: 1;
+  font-size: var(--text-xs);
+  line-height: var(--lh-snug);
+  color: var(--color-text-primary);
+}

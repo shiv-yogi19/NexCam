@@ -1,0 +1,305 @@
+/**
+ * NEXCAM CCTV - 14 Layouts & Responsive Display Engine
+ * 8 Multi-Camera Layouts (L1 - L8)
+ * 3 Mobile Layouts (M1 - M3)
+ * 3 Desktop Layouts (D1 - D3)
+ * Created By Shiv Yogi
+ */
+
+/* ==========================================================================
+   8 MULTI-CAMERA LAYOUT DEFINITIONS (L1 - L8)
+   ========================================================================== */
+
+.multi-camera-container {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 12px;
+  position: relative;
+  transition: all var(--trans-smooth);
+}
+
+/* L1: Single Focus (1 Large Video Feed) */
+.layout-l1-single-focus {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+.layout-l1-single-focus .cam-card:not(.active-focus) {
+  display: none;
+}
+
+/* L2: Dual View (2 Side-by-Side Video Feeds) */
+.layout-l2-dual-view {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+@media (max-width: 640px) {
+  .layout-l2-dual-view {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
+/* L3: Quad Grid (2 x 2 Equal Grid) */
+.layout-l3-quad-grid {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+/* L4: Six View (3 x 2 Grid) */
+.layout-l4-six-view {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+@media (max-width: 768px) {
+  .layout-l4-six-view {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+/* L5: Nine Grid (3 x 3 Grid) */
+.layout-l5-nine-grid {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+@media (max-width: 768px) {
+  .layout-l5-nine-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+}
+
+/* L6: Focus + Three (1 Large Feed + 3 Secondary Feeds) */
+.layout-l6-focus-three {
+  grid-template-columns: 2.5fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+}
+.layout-l6-focus-three .cam-card.primary-focus {
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
+}
+@media (max-width: 768px) {
+  .layout-l6-focus-three {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2.5fr 1fr;
+  }
+  .layout-l6-focus-three .cam-card.primary-focus {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+  }
+}
+
+/* L7: Focus + Five (1 Large Feed + 5 Secondary Feeds) */
+.layout-l7-focus-five {
+  grid-template-columns: 2.2fr 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+}
+.layout-l7-focus-five .cam-card.primary-focus {
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
+}
+@media (max-width: 768px) {
+  .layout-l7-focus-five {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 2.5fr 1fr 1fr;
+  }
+  .layout-l7-focus-five .cam-card.primary-focus {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+  }
+}
+
+/* L8: Adaptive Wall (Auto-computes optimal rows & columns) */
+.layout-l8-adaptive-wall {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-auto-rows: minmax(200px, 1fr);
+}
+
+/* ==========================================================================
+   3 MOBILE LAYOUT DEFINITIONS (M1 - M3)
+   ========================================================================== */
+
+/* M1: Minimal Control (Large preview, compact controls, drawer) */
+body.mobile-layout-m1 .app-viewport {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 8px;
+  gap: 8px;
+}
+body.mobile-layout-m1 .video-stage {
+  flex: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+body.mobile-layout-m1 .controls-dock {
+  background: var(--glass-bg-solid);
+  border: 1px solid var(--glass-border-base);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+}
+
+/* M2: Glass Dashboard (Preview + cards for battery, network, fps, latency) */
+body.mobile-layout-m2 .app-viewport {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 12px;
+  gap: 12px;
+  overflow-y: auto;
+}
+body.mobile-layout-m2 .video-stage {
+  min-height: 48vh;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+body.mobile-layout-m2 .dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+body.mobile-layout-m2 .dashboard-grid .glass-card {
+  padding: 12px;
+}
+
+/* M3: Immersive Monitor (Maximum edge-to-edge video, tap-to-reveal) */
+body.mobile-layout-m3 .app-viewport {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+body.mobile-layout-m3 .video-stage {
+  width: 100%;
+  height: 100%;
+  border-radius: 0 !important;
+  border: none !important;
+}
+body.mobile-layout-m3 .immersive-overlay-bar {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body.mobile-layout-m3 .immersive-bottom-bar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   3 DESKTOP LAYOUT DEFINITIONS (D1 - D3)
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+  /* D1: Professional Sidebar (Left Nav, Center Video, Right Info) */
+  body.desktop-layout-d1 .app-viewport {
+    display: grid;
+    grid-template-columns: 260px 1fr 320px;
+    height: 100vh;
+    overflow: hidden;
+  }
+  body.desktop-layout-d1 .nav-sidebar {
+    border-right: 1px solid var(--glass-border-base);
+    background: var(--glass-bg-subtle);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  body.desktop-layout-d1 .main-video-area {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+    overflow: hidden;
+  }
+  body.desktop-layout-d1 .telemetry-sidebar {
+    border-left: 1px solid var(--glass-border-base);
+    background: var(--glass-bg-subtle);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+  }
+
+  /* D2: Cinema Monitor (Maximized video, minimal overlay controls) */
+  body.desktop-layout-d2 .app-viewport {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0;
+    position: relative;
+    background: #000000;
+  }
+  body.desktop-layout-d2 .cinema-video-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  body.desktop-layout-d2 .cinema-floating-controls {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 16, 28, 0.75);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border-accent);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), var(--accent-glow-subtle);
+    border-radius: var(--radius-pill);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 500;
+  }
+
+  /* D3: Command Center (Multi-panel CCTV matrix with security & health) */
+  body.desktop-layout-d3 .app-viewport {
+    display: grid;
+    grid-template-columns: 240px 1fr 340px;
+    grid-template-rows: 1fr 200px;
+    height: 100vh;
+    gap: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  body.desktop-layout-d3 .cc-left-cameras {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    overflow-y: auto;
+  }
+  body.desktop-layout-d3 .cc-main-matrix {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    position: relative;
+    overflow: hidden;
+  }
+  body.desktop-layout-d3 .cc-right-security {
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+    overflow-y: auto;
+  }
+  body.desktop-layout-d3 .cc-bottom-nodes {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    overflow-x: auto;
+  }
+}

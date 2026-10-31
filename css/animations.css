@@ -1,0 +1,240 @@
+/**
+ * NEXCAM CCTV - High-Precision Motion & Animation System
+ * Created By Shiv Yogi
+ */
+
+/* Keyframe Definitions */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUpFade {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Pulsing Status Rings */
+@keyframes pulseGreen {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(0, 230, 118, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+  }
+}
+
+/* Red REC Pulsing Indicator (Only when recording) */
+@keyframes pulseRec {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.8);
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+    box-shadow: 0 0 0 8px rgba(255, 51, 102, 0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(255, 51, 102, 0);
+  }
+}
+
+.rec-pulse-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff3366;
+  display: inline-block;
+  animation: pulseRec 1.5s infinite ease-in-out;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Tech Lens Aperture Rotation */
+@keyframes apertureSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Subtle Shimmer for High-Priority Glass Highlights */
+@keyframes cyanShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Introductory Animation (Sequence: App Name First, Then Created By Shiv Yogi) */
+#intro-splash {
+  position: fixed;
+  inset: 0;
+  background: #000000;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  opacity: 1;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: all;
+}
+
+#intro-splash.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-logo-container {
+  width: 96px;
+  height: 96px;
+  opacity: 0;
+  animation: scaleUpFade 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-app-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 40%, #00e5ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: slideUpFade 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-creator-name {
+  font-family: var(--font-creator);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(0, 229, 255, 0.9);
+  text-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: slideUpFade 0.8s 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.intro-creator-name span {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.intro-hud-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00e5ff, transparent);
+  opacity: 0;
+  animation: fadeIn 0.8s 1.3s forwards;
+}
+
+/* Camera Switching Smooth Transition */
+.camera-feed-container {
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.camera-feed-container.switching-out {
+  opacity: 0.3;
+  transform: scale(0.97);
+  filter: blur(4px);
+}
+
+.camera-feed-container.switching-in {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+/* Auto-Hiding Controls (Immersive & Fullscreen) */
+.auto-hide-target {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.auto-hide-target.controls-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(14px);
+}
+
+/* Modal and Drawer Animations */
+.modal-enter {
+  animation: scaleUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-leave {
+  animation: fadeOut 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Toast Notifications */
+.toast-notification {
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Respect Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  #intro-splash {
+    transition: opacity 0.2s !important;
+  }
+  
+  .intro-logo-container,
+  .intro-app-name,
+  .intro-creator-name,
+  .intro-hud-line {
+    animation: fadeIn 0.1s forwards !important;
+    transform: none !important;
+  }
+}
+
+/* Ultra-Dark Black Screen Battery Saver: Disable all CSS transitions & animations */
+body.black-screen-active * {
+  animation: none !important;
+  transition: none !important;
+}

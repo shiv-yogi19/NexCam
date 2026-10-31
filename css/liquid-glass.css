@@ -1,0 +1,300 @@
+/**
+ * NEXCAM CCTV - Premium Pure-Black Liquid Glass System
+ * Created By Shiv Yogi
+ */
+
+:root {
+  /* Base Palette */
+  --bg-pure-black: #000000;
+  --bg-surface-1: #04070d;
+  --bg-surface-2: #080d17;
+  --bg-surface-3: #0d1524;
+
+  /* Liquid Glass Panels */
+  --glass-bg-subtle: rgba(10, 16, 28, 0.45);
+  --glass-bg-base: rgba(13, 20, 36, 0.65);
+  --glass-bg-heavy: rgba(16, 25, 45, 0.85);
+  --glass-bg-solid: rgba(8, 12, 22, 0.96);
+
+  /* Glass Borders and Highlights */
+  --glass-border-subtle: rgba(255, 255, 255, 0.06);
+  --glass-border-base: rgba(255, 255, 255, 0.10);
+  --glass-border-accent: rgba(0, 229, 255, 0.35);
+  --glass-border-focus: rgba(0, 168, 255, 0.65);
+  --glass-inner-highlight: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+  --glass-inner-shadow: inset 0 -1px 2px 0 rgba(0, 0, 0, 0.6);
+
+  /* Cyan & Electric Blue Accents */
+  --accent-cyan: #00e5ff;
+  --accent-cyan-light: #66efff;
+  --accent-blue: #0088ff;
+  --accent-blue-deep: #0055d4;
+  --accent-glow: 0 0 24px rgba(0, 229, 255, 0.28);
+  --accent-glow-subtle: 0 0 12px rgba(0, 229, 255, 0.15);
+
+  /* Semantic Alerts */
+  --color-success: #00e676;
+  --color-success-glow: 0 0 16px rgba(0, 230, 118, 0.3);
+  --color-warning: #ffab00;
+  --color-danger: #ff3366;
+  --color-danger-glow: 0 0 20px rgba(255, 51, 102, 0.45);
+
+  /* Text Colors */
+  --color-text-primary: #f0f6fc;
+  --color-text-secondary: rgba(240, 246, 252, 0.72);
+  --color-text-muted: rgba(240, 246, 252, 0.45);
+  --color-text-inverse: #000000;
+
+  /* Glass Blur Strength */
+  --glass-blur-sm: 8px;
+  --glass-blur-md: 16px;
+  --glass-blur-lg: 28px;
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  /* Transitions */
+  --trans-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Pure Black Base Document */
+html, body {
+  background-color: var(--bg-pure-black) !important;
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Liquid Glass Cards */
+.glass-panel {
+  background: var(--glass-bg-base);
+  backdrop-filter: blur(var(--glass-blur-md));
+  -webkit-backdrop-filter: blur(var(--glass-blur-md));
+  border: 1px solid var(--glass-border-base);
+  box-shadow: var(--glass-inner-highlight), 0 8px 32px 0 rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--trans-base), box-shadow var(--trans-base);
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.glass-panel-subtle {
+  background: var(--glass-bg-subtle);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  border: 1px solid var(--glass-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.glass-panel-interactive {
+  cursor: pointer;
+}
+
+.glass-panel-interactive:hover {
+  border-color: var(--glass-border-accent);
+  box-shadow: var(--glass-inner-highlight), var(--accent-glow-subtle), 0 12px 36px rgba(0, 0, 0, 0.7);
+  transform: translateY(-1px);
+}
+
+/* Liquid Glass Buttons */
+.glass-btn {
+  background: var(--glass-bg-base);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  color: var(--color-text-primary);
+  border: 1px solid var(--glass-border-base);
+  box-shadow: var(--glass-inner-highlight), 0 4px 14px rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-sm);
+  padding: 0.625rem 1.25rem;
+  font-family: var(--font-main);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all var(--trans-base);
+  user-select: none;
+  text-decoration: none;
+}
+
+.glass-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.glass-btn:hover:not(:disabled) {
+  background: var(--glass-bg-heavy);
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+  box-shadow: var(--glass-inner-highlight), 0 0 18px rgba(0, 229, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.glass-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.glass-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Primary Glass Button */
+.glass-btn-primary {
+  background: linear-gradient(135deg, rgba(0, 168, 255, 0.35) 0%, rgba(0, 102, 255, 0.5) 100%);
+  border-color: rgba(0, 229, 255, 0.5);
+  color: #ffffff;
+  box-shadow: var(--glass-inner-highlight), 0 0 20px rgba(0, 168, 255, 0.35);
+}
+
+.glass-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(0, 200, 255, 0.5) 0%, rgba(0, 120, 255, 0.65) 100%);
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glass-inner-highlight), 0 0 28px rgba(0, 229, 255, 0.55);
+}
+
+/* Danger Glass Button */
+.glass-btn-danger {
+  background: linear-gradient(135deg, rgba(255, 51, 102, 0.25) 0%, rgba(180, 20, 60, 0.4) 100%);
+  border-color: rgba(255, 51, 102, 0.5);
+  color: #ff99aa;
+}
+
+.glass-btn-danger:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(255, 51, 102, 0.4) 0%, rgba(220, 20, 70, 0.6) 100%);
+  border-color: #ff3366;
+  color: #ffffff;
+  box-shadow: var(--glass-inner-highlight), 0 0 24px rgba(255, 51, 102, 0.5);
+}
+
+/* Glass Inputs */
+.glass-input {
+  background: rgba(8, 12, 22, 0.7);
+  backdrop-filter: blur(var(--glass-blur-sm));
+  -webkit-backdrop-filter: blur(var(--glass-blur-sm));
+  border: 1px solid var(--glass-border-base);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-main);
+  font-size: var(--text-base);
+  padding: 0.75rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: all var(--trans-base);
+}
+
+.glass-input:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.35);
+  background: rgba(12, 18, 32, 0.85);
+}
+
+.glass-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Glass Status Badges / Pills */
+.glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  background: rgba(10, 16, 28, 0.65);
+  border: 1px solid var(--glass-border-subtle);
+  box-shadow: var(--glass-inner-highlight);
+}
+
+.glass-badge.live {
+  border-color: rgba(0, 230, 118, 0.4);
+  color: #00e676;
+}
+
+.glass-badge.live .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #00e676;
+  box-shadow: 0 0 8px #00e676;
+}
+
+.glass-badge.offline {
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.glass-badge.offline .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.glass-badge.locked {
+  border-color: rgba(0, 229, 255, 0.4);
+  color: var(--accent-cyan);
+}
+
+/* Modals Overlay */
+.glass-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(var(--glass-blur-lg));
+  -webkit-backdrop-filter: blur(var(--glass-blur-lg));
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.glass-modal-content {
+  background: var(--glass-bg-solid);
+  border: 1px solid var(--glass-border-accent);
+  box-shadow: var(--glass-inner-highlight), 0 24px 64px rgba(0, 0, 0, 0.9), 0 0 32px rgba(0, 229, 255, 0.2);
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fallback for environments without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-panel,
+  .glass-panel-subtle,
+  .glass-btn,
+  .glass-modal-content {
+    background: #090e18 !important;
+  }
+}
